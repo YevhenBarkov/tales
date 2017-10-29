@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="text-center">
+        <h3>Tales page</h3>
+    </div>
+    <div id="content" class="container-viewport col-lg-9">
+        <ul class="list-group">
+            {% for tale in tales %}
+                <li class="list-group-item row">
+                    <div class="container-viewport">
+                        <a href="/tale?id={{ tale.id }}"><img src="img/no_book_cover_lg.jpg" class="col-lg-3 img-rounded"/></a>
+                        <div class="container-viewport col-lg-9">
+                            <div class="col-lg-2">Title</div>
+                            <div> <a href="/tale?id={{ tale.id }}">{{ tale.name }}</a></div>
+                            <div class="col-lg-2">Author</div>
+                            <div>{{ tale.user.login }}</div>
+                            <div class="col-lg-2"> Status</div>
+                            <div>{{ tale.status.name }}</div>
+                            <div class="col-lg-2">Tags</div>
+                            <div>
+                                {% for tag in tale.tags %}
+                                    {{ tag.name }}
+                                {% endfor %}</div>
+
+                            <div class="col-lg-12">
+                                {{ tale.description }}a aaa aa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaa a aa aaa aa aaa aa aa aa aaaa aa aaaaaa
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="container-fluid bg-primary col-lg-3 img-rounded">
+        some navigation, tags etc.
+    </div>
+{% endblock %}
+

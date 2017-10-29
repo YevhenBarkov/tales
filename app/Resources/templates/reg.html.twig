@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h3>Registration page</h3>
+    Massage : {{ massage }}<br>
+    <form method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="loginInput" class="col-sm-2 control-label col-lg-offset-2">Login</label>
+            <div class="col-sm-6">
+                <input name="login" class="form-control" id="loginInput" placeholder="Login"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordInput" class="col-sm-2 control-label col-lg-offset-2">Password</label>
+            <div class="col-sm-6">
+                <input name="password" type="password" class="form-control" id="passwordInput"
+                       placeholder="Password"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordConfInput" class="col-sm-2 control-label col-lg-offset-2">Confirm</label>
+            <div class="col-sm-6">
+                <input name="passwordConf" type="password" class="form-control" id="passwordConfInput"
+                       placeholder="Confirm"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="emailInput" class="col-sm-2 control-label col-lg-offset-2">E-mail</label>
+            <div class="col-sm-6">
+                <input name="email" type="email" class="form-control" id="emailInput"
+                       placeholder="email@email.com"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-info">Sign up</button>
+            </div>
+        </div>
+    </form>
+
+
+
+{% endblock %}

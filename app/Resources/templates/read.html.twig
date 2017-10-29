@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="text-center">
+        <h3>Read page</h3>
+    </div>
+    <div>
+        <div id="content" class="container-viewport col-lg-9">
+            <h4><a href="/tale?id={{ chapter.tale.id }}">{{ chapter.tale.name }}</a> : {{ chapter.name }}</h4>
+            <p>
+                {{ chapter.content|raw }}
+            </p>
+        </div>
+        <div id="content" class="container-viewport col-lg-3">
+            <button>Night/Day</button><br><br>
+            <button>Hide</button>
+        </div>
+    </div>
+{% endblock %}
