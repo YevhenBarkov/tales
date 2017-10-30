@@ -11,6 +11,53 @@ use Src\Entity\UserType;
 
 class DBManager
 {
+    public function getTalesByTags($includeTags, $excludeTags)
+    {
+        $con = PDOConnection::getConnection();
+        $tales = null;
+        $statement = "SELECT a.id, a.user_id,a.status, a.name,a.description,a.cover FROM tales a ";
+        $inc= [];
+        $exc=[];
+        if($includeTags){
+            $inc = explode(",",$includeTags);
+            $statement =  $statement." JOIN (SELECT tale_id FROM tale_tags WHERE tag IN (";
+
+            $questionMarks = [];
+            for ($i = 0; $i<count($inc); $i++ ){
+                $questionMarks[]=" ?";
+            }
+            $statement =  $statement.implode(',',$questionMarks);
+
+            $statement = $statement.") GROUP BY 1 HAVING COUNT(*) = ";
+            $statement = $statement.count($inc);//length
+            $statement =  $statement.") partA ON a.id = partA.tale_id ";
+        }
+
+        if($excludeTags){
+            $exc = explode(",",$excludeTags);
+            $statement = $statement." LEFT JOIN (SELECT DISTINCT tale_id FROM tale_tags WHERE tag IN ( ";
+
+            $questionMarks = [];
+            for ($i = 0; $i<count($exc); $i++ ){
+                $questionMarks[]=" ?";
+            }
+
+            $statement =  $statement.implode(',',$questionMarks);
+            $statement =  $statement." )) partB ON a.id = partB.tale_id WHERE partB.tale_id IS NULL ";
+        }
+
+        $stmt = $con->prepare($statement);
+        $temp = array_merge($inc,$exc);
+        if ($stmt->execute($temp)) {
+            while ($row = $stmt->fetch()) {
+                $tales[] = $this->extractTale($row);
+            }
+        }
+
+        $con = null;
+
+        return $tales;
+    }
 
     /**
      * @return array|null
@@ -29,6 +76,22 @@ class DBManager
         $con = null;
 
         return $tales;
+    }
+
+    public function getAllTags()
+    {
+        $con = PDOConnection::getConnection();
+        $tags = null;
+        $result = $con->query("SELECT * FROM tags");
+
+        if ($result) {
+            foreach ($result as $tag) {
+                $tags[] = $tag[0];
+            }
+        }
+        $con = null;
+
+        return $tags;
     }
 
     public function getUserByLogin($login)
@@ -143,50 +206,14 @@ class DBManager
         return $resultChapter;
     }
 
-    public function getStatusById($id)
-    {
-        $con = PDOConnection::getConnection();
-        $stmt = $con->prepare("SELECT * FROM status WHERE id = ?");
-        $resultStatus = null;
-
-        if ($stmt->execute(array($id))) {
-            while ($row = $stmt->fetch()) {
-                $resultStatus = $this->extractStatus($row);
-            }
-        }
-
-        $some = null;
-        $con = null;
-
-        return $resultStatus;
-    }
-
-    public function getTagById($id)
-    {
-        $con = PDOConnection::getConnection();
-        $stmt = $con->prepare("SELECT * FROM tags WHERE id = ?");
-        $resultTag = null;
-
-        if ($stmt->execute(array($id))) {
-            while ($row = $stmt->fetch()) {
-                $resultTag = $this->extractTag($row);
-            }
-        }
-
-        $some = null;
-        $con = null;
-
-        return $resultTag;
-    }
-
     public function getTaleTags($taleId)
     {
         $con = PDOConnection::getConnection();
-        $stmt = $con->prepare("SELECT * FROM tale_tags WHERE tale_id = ?");
+        $stmt = $con->prepare("SELECT tag FROM tale_tags WHERE tale_id = ?");
         $taleTags = null;
         if ($stmt->execute(array($taleId))) {
             while ($row = $stmt->fetch()) {
-                $taleTags[] = $this->getTagById($row[1]);
+                $taleTags[] = $row[0];
             }
         }
 
@@ -264,7 +291,7 @@ class DBManager
 
         $tale->setId($rowFromDB[0]);
         $tale->setUser($this->getUserById($rowFromDB[1]));
-        $tale->setStatus($this->getStatusById($rowFromDB[2]));
+        $tale->setStatus($rowFromDB[2]);
         $tale->setName($rowFromDB[3]);
         $tale->setDescription($rowFromDB[4]);
         $tale->setCover($rowFromDB[5]);
@@ -285,23 +312,4 @@ class DBManager
         return $type;
     }
 
-    private function extractStatus(array $rowFromDB)
-    {
-        $status = new Status();
-
-        $status->setId($rowFromDB[0]);
-        $status->setName($rowFromDB[1]);
-
-        return $status;
-    }
-
-    private function extractTag(array $rowFromDB)
-    {
-        $tag = new Tag();
-
-        $tag->setId($rowFromDB[0]);
-        $tag->setName($rowFromDB[1]);
-
-        return $tag;
-    }
 }

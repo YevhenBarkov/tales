@@ -51,7 +51,7 @@ class __TwigTemplate_5d8280638aa7e7957861d7b4623413a4d5971b8640a8ef8e90e73927d36
                             <div class=\"col-lg-2\"> Status</div>
                             <div>";
         // line 19
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), ($context["tale"] ?? null), "status", array()), "name", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), ($context["tale"] ?? null), "status", array()), "html", null, true);
         echo "</div>
                             <div class=\"col-lg-2\">Tags</div>
                             <div>
@@ -62,7 +62,7 @@ class __TwigTemplate_5d8280638aa7e7957861d7b4623413a4d5971b8640a8ef8e90e73927d36
         foreach ($context['_seq'] as $context["_key"] => $context["tag"]) {
             // line 23
             echo "                                    ";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), $context["tag"], "name", array()), "html", null, true);
+            echo twig_escape_filter($this->env, $context["tag"], "html", null, true);
             echo "
                                 ";
         }

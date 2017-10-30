@@ -6,25 +6,31 @@
     </div>
     <div id="content" class="container-viewport col-lg-9">
         <ul class="list-group">
+            {% if tales is empty %}
+                <li class="list-group-item row">
+                    <h3>No tales by this tags</h3>
+                </li>
+            {% endif %}
             {% for tale in tales %}
                 <li class="list-group-item row">
                     <div class="container-viewport">
-                        <a href="/tale?id={{ tale.id }}"><img src="img/no_book_cover_lg.jpg" class="col-lg-3 img-rounded"/></a>
+                        <a href="/tale?id={{ tale.id }}"><img src="{{ tale.cover }}" class="col-lg-3 img-rounded"/></a>
                         <div class="container-viewport col-lg-9">
                             <div class="col-lg-2">Title</div>
-                            <div> <a href="/tale?id={{ tale.id }}">{{ tale.name }}</a></div>
+                            <div><a href="/tale?id={{ tale.id }}">{{ tale.name }}</a></div>
                             <div class="col-lg-2">Author</div>
                             <div>{{ tale.user.login }}</div>
                             <div class="col-lg-2"> Status</div>
-                            <div>{{ tale.status.name }}</div>
+                            <div>{{ tale.status }}</div>
                             <div class="col-lg-2">Tags</div>
                             <div>
                                 {% for tag in tale.tags %}
-                                    {{ tag.name }}
+                                    {{ tag }}
                                 {% endfor %}</div>
 
                             <div class="col-lg-12">
-                                {{ tale.description }}a aaa aa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaa a aa aaa aa aaa aa aa aa aaaa aa aaaaaa
+                                {{ tale.description }}a aaa aa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa aa aaaa aa
+                                aa aaaa aa aa aaa a aa aaa aa aaa aa aa aa aaaa aa aaaaaa
                             </div>
                         </div>
                     </div>
@@ -32,8 +38,19 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="container-fluid bg-primary col-lg-3 img-rounded">
-        some navigation, tags etc.
+    <div class="container-fluid col-lg-3 ">
+        <ul class="list-group text-center row">
+            <li class="list-group-item active ">
+                Tags
+            </li>
+            {% for tag in tags %}
+                <li class="list-group-item container-fluid">
+                    <a onclick="searchByTags(0,'{{ tag }}')" class="col-lg-1"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a href="/talesList?include={{ tag }}" class="col-sm-8">{{ tag }}</a>
+                    <a onclick="searchByTags(1,'{{ tag }}')" class="col-lg-1"><span class="glyphicon glyphicon-remove"></span></a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
 

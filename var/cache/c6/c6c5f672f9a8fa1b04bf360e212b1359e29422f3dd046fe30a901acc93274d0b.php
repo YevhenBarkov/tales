@@ -33,14 +33,44 @@ class __TwigTemplate_3a396e9b20b1eea7abd26f0660206987bbd680af131ed3e8483364011e4
         Massage : ";
         // line 6
         echo twig_escape_filter($this->env, ($context["massage"] ?? null), "html", null, true);
-        echo "<br>some text for testsome text for testsome text for testsome text for testsome text for test
-        some text for testsome text for testsome text for testsome text for testsome text for testsome text for testsome text for testsome text for test
-        some text for testsome text for testsome text for testsome text for testsome text for testsome text for testsome text for testsome text for testsome text for testsome text for test
-        some text for testsome text for testsome text for testsome text for testsome text for testsome text for test
+        echo "<br>some text for testsome text for testsome text for testsome text for testsome text for
+        test
+        some text for testsome text for testsome text for
+        testsome text for testsome text for testsome text for testsome
+        text for testsome text for test
+        some text for testsome text for testsome text for
+        testsome text for testsome text for testsome text for testsome
+        text for testsome text for testsome text for testsome text for test
+        some text for testsome text for testsome text for
+        testsome text for testsome text for testsome text for test
 
     </div>
-    <div class=\"container-fluid bg-primary col-lg-3 img-rounded\">
-        some navigation, tags etc.
+    <div class=\"container-fluid col-lg-3\">
+        <ul class=\"list-group\">
+            <li class=\"list-group-item active \">
+                Tags
+            </li>
+            ";
+        // line 23
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(($context["tags"] ?? null));
+        foreach ($context['_seq'] as $context["_key"] => $context["tag"]) {
+            // line 24
+            echo "                <li class=\"list-group-item\">
+                    <a href=\"/talesList?include=";
+            // line 25
+            echo twig_escape_filter($this->env, $context["tag"], "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, $context["tag"], "html", null, true);
+            echo "</a>
+                </li>
+            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['tag'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 28
+        echo "        </ul>
     </div>
 
 ";
@@ -58,7 +88,7 @@ class __TwigTemplate_3a396e9b20b1eea7abd26f0660206987bbd680af131ed3e8483364011e4
 
     public function getDebugInfo()
     {
-        return array (  35 => 6,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  73 => 28,  62 => 25,  59 => 24,  55 => 23,  35 => 6,  31 => 4,  28 => 3,  11 => 1,);
     }
 
     public function getSourceContext()

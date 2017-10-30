@@ -22,15 +22,14 @@ class __TwigTemplate_7dbff6928585a4f0e6c9d96b37d7674f83ba108c5282d0e7825dbef6365
 <html>
 <meta charset=\"UTF-8\" />
 <head>
-    ";
-        // line 6
-        echo "    <link rel=\"stylesheet\" href=\"bootstrap-3.3.7-dist/css/bootstrap.css\" type=\"text/css\"/>
+    <link rel=\"stylesheet\" href=\"bootstrap-3.3.7-dist/css/bootstrap.css\" type=\"text/css\"/>
     <title>Tales</title>
     ";
-        // line 8
+        // line 7
         $this->displayBlock('head', $context, $blocks);
-        // line 11
-        echo "</head>
+        // line 10
+        echo "    <script src=\"js/scripts.js\"></script>
+</head>
 <body>
 <div id=\"all\" class=\"container-fluid col-lg-10 col-lg-offset-1\">
     <nav class=\"navbar navbar-inverse\">
@@ -73,10 +72,10 @@ class __TwigTemplate_7dbff6928585a4f0e6c9d96b37d7674f83ba108c5282d0e7825dbef6365
 </html>";
     }
 
-    // line 8
+    // line 7
     public function block_head($context, array $blocks = array())
     {
-        // line 9
+        // line 8
         echo "        <h1 id=\"sitePage\" class=\"text-center\">Tales</h1>
     ";
     }
@@ -100,7 +99,7 @@ class __TwigTemplate_7dbff6928585a4f0e6c9d96b37d7674f83ba108c5282d0e7825dbef6365
 
     public function getDebugInfo()
     {
-        return array (  88 => 33,  85 => 32,  80 => 9,  77 => 8,  72 => 42,  67 => 34,  65 => 32,  60 => 29,  55 => 26,  48 => 23,  46 => 22,  33 => 11,  31 => 8,  27 => 6,  21 => 1,);
+        return array (  87 => 33,  84 => 32,  79 => 8,  76 => 7,  71 => 42,  66 => 34,  64 => 32,  59 => 29,  54 => 26,  47 => 23,  45 => 22,  31 => 10,  29 => 7,  21 => 1,);
     }
 
     public function getSourceContext()
